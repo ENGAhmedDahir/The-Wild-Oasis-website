@@ -1,0 +1,93 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --color-primary-50: #141C24;
+    --color-primary-100: #1B2631;
+    --color-primary-200: #2C3D4F;
+    --color-primary-300: #3C546C;
+    --color-primary-400: #4C6B8A;
+    --color-primary-500: #5E82A6;
+    --color-primary-600: #7C99B6;
+    --color-primary-700: #99B0C7;
+    --color-primary-800: #B7C7D7;
+    --color-primary-900: #D4DEE7;
+    --color-primary-950: #E1E8EF;
+
+    --color-accent-50: #431407;
+    --color-accent-100: #7c2d12;
+    --color-accent-200: #9a3412;
+    --color-accent-300: #c2410c;
+    --color-accent-400: #ea580c;
+    --color-accent-500: #f97316;
+    --color-accent-600: #fb923c;
+    --color-accent-700: #fdba74;
+    --color-accent-800: #fed7aa;
+    --color-accent-900: #ffedd5;
+    --color-accent-950: #fff7ed;
+  }
+
+  .dark {
+    --color-primary-50: #E1E8EF;
+    --color-primary-100: #D4DEE7;
+    --color-primary-200: #B7C7D7;
+    --color-primary-300: #99B0C7;
+    --color-primary-400: #7C99B6;
+    --color-primary-500: #5E82A6;
+    --color-primary-600: #4C6B8A;
+    --color-primary-700: #3C546C;
+    --color-primary-800: #2C3D4F;
+    --color-primary-900: #1B2631;
+    --color-primary-950: #141C24;
+
+    --color-accent-50: #fff7ed;
+    --color-accent-100: #ffedd5;
+    --color-accent-200: #fed7aa;
+    --color-accent-300: #fdba74;
+    --color-accent-400: #fb923c;
+    --color-accent-500: #f97316;
+    --color-accent-600: #ea580c;
+    --color-accent-700: #c2410c;
+    --color-accent-800: #9a3412;
+    --color-accent-900: #7c2d12;
+    --color-accent-950: #431407;
+  }
+}
+
+@layer components {
+  .spinner {
+    margin: 3.2rem auto 1.6rem;
+    width: 60px;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    border: 8px solid theme("colors.primary.900");
+    border-right-color: theme("colors.primary.200");
+    animation: rotate 1s infinite linear;
+  }
+
+  .spinner-mini {
+    margin: 0;
+    width: 20px;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    border: 2px solid theme("colors.primary.200");
+    border-right-color: transparent;
+    animation: rotate 1s infinite linear;
+  }
+
+  @keyframes rotate {
+    to {
+      transform: rotate(1turn);
+    }
+  }
+}
+
+/* For data picker */
+.rdp {
+  --rdp-cell-size: 32px !important;
+  --rdp-accent-color: theme("colors.accent.500") !important;
+  --rdp-background-color: theme("colors.accent.600") !important;
+  margin: 0 !important;
+}
