@@ -1,8 +1,9 @@
 "use client";
 
+import { useState } from "react";
 import { differenceInDays } from "date-fns";
 
-import { createBooking } from "../_lib/actions";
+import { createBooking, createBookingWithNoPayment } from "../_lib/actions";
 import SubmitButton from "./SubmitButton";
 import { useReservation } from "./ReservationContex";
 
@@ -25,6 +26,9 @@ function ReservationForm({ cabin, user }) {
   };
 
   const createBookingWithData = createBooking.bind(null, bookingData);
+  const createBookingWithNoPaymentData = createBookingWithNoPayment.bind(null, bookingData);
+
+  const [paymentMethod, setPaymentMethod] = useState("online");
 
   return (
     <div className="scale-[1.01]">
@@ -46,7 +50,11 @@ function ReservationForm({ cabin, user }) {
       <form
         // action={createBookingWithData}
         action={async (formData) => {
-          await createBookingWithData(formData);
+          if (paymentMethod === "online") {
+            await createBookingWithData(formData);
+          } else {
+            await createBookingWithNoPaymentData(formData);
+          }
           resetRange();
         }}
         className="bg-primary-900 py-10 px-4 md:px-16 text-lg flex gap-5 flex-col"
@@ -80,6 +88,21 @@ function ReservationForm({ cabin, user }) {
             className="px-5 py-3 bg-primary-200 text-primary-800 w-full shadow-sm rounded-sm"
             placeholder="Any pets, allergies, special requirements, etc.?"
           />
+        </div>
+
+        <div className="space-y-2">
+          <label htmlFor="paymentMethod">Payment Method</label>
+          <select
+            name="paymentMethod"
+            id="paymentMethod"
+            value={paymentMethod}
+            onChange={(e) => setPaymentMethod(e.target.value)}
+            className="px-5 py-3 bg-primary-200 text-primary-800 w-full shadow-sm rounded-sm"
+            required
+          >
+            <option value="online">Pay Online Now</option>
+            <option value="arrival">Pay on Arrival</option>
+          </select>
         </div>
 
         <div className="flex justify-end items-center gap-6">
