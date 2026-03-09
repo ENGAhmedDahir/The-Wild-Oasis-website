@@ -1,7 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { differenceInDays } from "date-fns";
+
+import { differenceInDays, addMinutes } from "date-fns";
 
 import { createBooking, createBookingWithNoPayment } from "../_lib/actions";
 import SubmitButton from "./SubmitButton";
@@ -11,8 +12,13 @@ function ReservationForm({ cabin, user }) {
   const { range, resetRange } = useReservation();
   const { maxCapacity, regularPrice, discount, id } = cabin;
 
-  const startDate = range.from;
-  const endDate = range.to;
+  // Remove the local timezone offset so the date stays the exact same day in UTC
+  const startDate = range.from
+    ? addMinutes(range.from, range.from.getTimezoneOffset() * -1)
+    : null;
+  const endDate = range.to
+    ? addMinutes(range.to, range.to.getTimezoneOffset() * -1)
+    : null;
 
   const numNights = differenceInDays(endDate, startDate);
   const cabinPrice = numNights * (regularPrice - discount);
@@ -26,7 +32,10 @@ function ReservationForm({ cabin, user }) {
   };
 
   const createBookingWithData = createBooking.bind(null, bookingData);
-  const createBookingWithNoPaymentData = createBookingWithNoPayment.bind(null, bookingData);
+  const createBookingWithNoPaymentData = createBookingWithNoPayment.bind(
+    null,
+    bookingData,
+  );
 
   const [paymentMethod, setPaymentMethod] = useState("online");
 
