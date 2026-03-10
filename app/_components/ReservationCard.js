@@ -76,12 +76,6 @@ function ReservationCard({ booking, onDelete }) {
       </div>
 
       <div className="flex flex-row lg:flex-col border-t lg:border-t-0 lg:border-l border-primary-800 lg:w-[130px]">
-        {/* {!isPast(startDate) ? (
-          <>
-            <Link
-              href={`/account/reservations/edit/${id}`}
-              className="group flex flex-1 justify-center lg:justify-start items-center gap-2 uppercase text-xs font-bold text-primary-300 border-r lg:border-r-0 lg:border-b border-primary-800 px-3 py-4 hover:bg-accent-600 transition-colors hover:text-primary-900"
-            > */}
         {!isPast(new Date(startDate)) || isToday(new Date(startDate)) ? (
           <>
             <Link
